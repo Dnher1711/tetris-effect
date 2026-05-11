@@ -1,0 +1,39 @@
+import java.awt.*;
+import java.util.Random;
+
+public class StarParticle {
+    public double x, y;
+    public double velX, velY;
+    public int size;
+    public Color color;
+    public int life = 40; // Thời gian tồn tại (opacity giảm dần)
+    private static final Random rand = new Random();
+
+    public StarParticle(int startX, int startY, Color color) {
+        this.x = startX;
+        this.y = startY;
+        this.color = color;
+        this.size = rand.nextInt(7) + 8;
+        // Tạo tốc độ bay ngẫu nhiên
+        this.velX = (rand.nextDouble() - 0.5) * 15;
+        this.velY = -(rand.nextDouble()  * 15 +10);
+    }
+
+    public void update() {
+        x += velX;
+        y += velY;
+        velY += -0.5; // Trọng lực nhẹ làm hạt rơi xuống
+        life -= 8;   // Biến mất dần
+    }
+
+    public void draw(Graphics2D g2d) {
+        if (life <= 0) return;
+        int alpha = Math.max(0, Math.min(255, (life * 255) / 60));
+        g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), (life * 255) / 100));
+
+        // Vẽ hình ngôi sao đơn giản (dấu cộng hoặc đa giác)
+        int[] xPoints = {(int)x, (int)x+size/2, (int)x+size, (int)x+size/2};
+        int[] yPoints = {(int)y+size/2, (int)y, (int)y+size/2, (int)y+size};
+        g2d.fillPolygon(xPoints, yPoints, 4);
+    }
+}
