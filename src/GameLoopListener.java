@@ -1,6 +1,6 @@
 public interface GameLoopListener {
     void onUpdate();
     void onGameOver();
-    // THÊM DÒNG NÀY:
+    SoundManager getSoundManager();
     EffectManager getEffectManager();
 }

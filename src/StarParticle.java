@@ -13,7 +13,7 @@ public class StarParticle {
         this.x = startX;
         this.y = startY;
         this.color = color;
-        this.size = rand.nextInt(7) + 8;
+        this.size = rand.nextInt(10) + 11;
         // Tạo tốc độ bay ngẫu nhiên
         this.velX = (rand.nextDouble() - 0.5) * 15;
         this.velY = -(rand.nextDouble()  * 15 +10);
@@ -22,8 +22,8 @@ public class StarParticle {
     public void update() {
         x += velX;
         y += velY;
-        velY += -0.5; // Trọng lực nhẹ làm hạt rơi xuống
-        life -= 8;   // Biến mất dần
+        velY += -1; // Trọng lực nhẹ làm hạt rơi xuống
+        life -= 6;   // Biến mất dần
     }
 
     public void draw(Graphics2D g2d) {

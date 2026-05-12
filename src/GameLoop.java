@@ -144,11 +144,15 @@ public class GameLoop {
         lockResetCount = 0;
 
         if (tryMoveDown()) return;
-
+        SoundManager sm = null;
+        if (listener instanceof TetrisGame.GamePanel) {
+            sm = ((TetrisGame.GamePanel) listener).getSoundManager();
+        }
 
         board.placeTetromino(currentPiece);
         int[] clearedRows = board.clearLines();
         if (clearedRows != null && clearedRows.length > 0) {
+            if (sm != null) sm.playBreak();
             scoreManager.addLineClear(clearedRows.length);
             for (int row : clearedRows) {
                 // Gọi sang GamePanel để yêu cầu tạo vụ nổ tại hàng tương ứng

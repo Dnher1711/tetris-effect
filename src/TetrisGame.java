@@ -113,8 +113,13 @@ public class TetrisGame extends JFrame {
         private boolean paused=false;
         private List<Star> stars=new ArrayList<>();
         private Random random=new Random();
-
+        private SoundManager sound = new SoundManager();
+        @Override
+        public SoundManager getSoundManager() {
+            return this.sound;
+        }
         public GamePanel() {
+            sound.playMusic();
             this.board = new Board();
             // Truyền board và 'this' (chính là listener) vào đây
             this.gameLogic = new GameLogic(board, this);
@@ -125,12 +130,12 @@ public class TetrisGame extends JFrame {
                 @Override public void keyPressed(KeyEvent e){
                     if(gameLoop==null) return;
                     switch(e.getKeyCode()){
-                        case KeyEvent.VK_LEFT:  gameLoop.onKeyLeft();         break;
-                        case KeyEvent.VK_RIGHT: gameLoop.onKeyRight();        break;
+                        case KeyEvent.VK_LEFT:  gameLoop.onKeyLeft(); sound.playMove();        break;
+                        case KeyEvent.VK_RIGHT: gameLoop.onKeyRight();sound.playMove();        break;
                         case KeyEvent.VK_UP:    gameLoop.onKeyRotateCW();     break;
                         case KeyEvent.VK_Z:     gameLoop.onKeyRotateCCW();    break;
-                        case KeyEvent.VK_DOWN:  gameLoop.onKeySoftDrop(true); break;
-                        case KeyEvent.VK_SPACE: gameLoop.onKeyHardDrop();     break;
+                        case KeyEvent.VK_DOWN:  gameLoop.onKeySoftDrop(true); sound.playMove(); break;
+                        case KeyEvent.VK_SPACE: gameLoop.onKeyHardDrop(); ;break;
                         case KeyEvent.VK_P:     paused=!paused; gameLoop.onKeyPause(); break;
                         case KeyEvent.VK_R:     gameLoop.reset(); paused=false; break;
                     }
