@@ -7,7 +7,6 @@ public class SoundManager {
 
     public SoundManager() {
         // Nạp file từ Resources Root (dấu / ở đầu là bắt buộc)
-        moveClip = loadClip("/move.wav");
         musicClip = loadClip("/music.wav");
         breakClip = loadClip ("/break (1).wav");
 
